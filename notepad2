@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Library Management System</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Welcome to the Library</h1>
+    </header>
+    <nav>
+        <a href="/login">Login</a>
+        <a href="/books">View Books</a>
+    </nav>
+    <footer>
+        <p>© 2024 Library Management System</p>
+    </footer>
+</body>
+</html>
+
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Login</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <h2>Login</h2>
+    <form action="/login" method="post">
+        <label>Username:</label>
+        <input type="text" name="username" required>
+        <label>Password:</label>
+        <input type="password" name="password" required>
+        <button type="submit">Login</button>
+    </form>
+</body>
+</html>
+
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>User Dashboard</title>
+    <link rel="stylesheet" href="/css/user.css">
+</head>
+<body>
+    <h1>Welcome, <span th:text="${username}"></span>!</h1>
+    <nav>
+        <a href="/books">Browse Books</a>
+        <a href="/user/borrow-history">My Borrow History</a>
+        <a href="/logout">Logout</a>
+    </nav>
+</body>
+</html>
+
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Book List</title>
+    <link rel="stylesheet" href="/css/catalog.css">
+</head>
+<body>
+    <h1>Available Books</h1>
+    <table>
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Genre</th>
+            <th>Availability</th>
+            <th>Action</th>
+        </tr>
+        <tr th:each="book : ${books}">
+            <td th:text="${book.title}"></td>
+            <td th:text="${book.author}"></td>
+            <td th:text="${book.genre}"></td>
+            <td th:text="${book.availabilityStatus == 'Y' ? 'Available' : 'Not Available'}"></td>
+            <td>
+                <button th:if="${book.availabilityStatus == 'Y'}"
+                        th:onclick="'borrowBook(' + ${book.bookId} + ')'">Borrow</button>
+            </td>
+        </tr>
+    </table>
+    <script src="/js/catalog.js"></script>
+</body>
+</html>
+
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>My Borrow History</title>
+    <link rel="stylesheet" href="/css/borrow.css">
+</head>
+<body>
+    <h1>My Borrowed Books</h1>
+    <table>
+        <tr>
+            <th>Book Title</th>
+            <th>Borrow Date</th>
+            <th>Due Date</th>
+            <th>Status</th>
+        </tr>
+        <tr th:each="record : ${borrowHistory}">
+            <td th:text="${record.book.title}"></td>
+            <td th:text="${record.borrowDate}"></td>
+            <td th:text="${record.dueDate}"></td>
+            <td th:text="${record.returnStatus ? 'Returned' : 'Not Returned'}"></td>
+        </tr>
+    </table>
+</body>
+</html>
