@@ -14,9 +14,7 @@ public interface BorrowService {
 	List<BorrowRecordModel> getAllBorrowRecord();
 	
 	BorrowRecordModel addBorrowRecord(BorrowRecordDTO borrowRecordDTO);
-	
-	BorrowRecordModel updateReturnStatus(int borrowId,BorrowRecordDTO borrowRecordDTO);
-	
+		
 	Optional<BorrowRecordModel> getBorrowRecordById(int borrowId);
 	
 	List<BorrowRecordModel> getBorrowRecordByUserId(int userId);
@@ -26,4 +24,6 @@ public interface BorrowService {
 	List<BorrowRecordModel> getOverdueBorrowRecord(java.sql.Date currectDate);
 	
 	boolean deleteBorrowrecordById(int borrowId);
+
+	BorrowRecordModel returnBook(int borrowId, BorrowRecordDTO borrowRecordDTO);
 } 

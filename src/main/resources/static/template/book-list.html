@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Book List</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Available Books</h1>
+    <table>
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Genre</th>
+            <th>Availability</th>
+            <th>Action</th>
+        </tr>
+        <tr th:each="book : ${books}">
+            <td th:text="${book.bookName}"></td>
+            <td th:text="${book.bookAuthor}"></td>
+            <td th:text="${book.bookGenre}"></td>
+            <td th:text="${book.availabilityStatus == 'Y' ? 'Available' : 'Not Available'}"></td>
+            <td>
+                <button th:if="${book.availabilityStatus == 'Y'}"
+                        th:onclick="'borrowBook(' + ${book.bookName} + ')'">Borrow</button>
+            </td>
+        </tr>
+    </table>
+    <script src="/js/catalog.js"></script>
+</body>
+</html>

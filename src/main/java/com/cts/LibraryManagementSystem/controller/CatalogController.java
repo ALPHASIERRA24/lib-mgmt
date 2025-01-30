@@ -33,9 +33,9 @@ public class CatalogController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<CatalogModel> addBook(@RequestBody CatalogDTO catalogDto){
-		CatalogModel addedBook=catalogService.addBook(catalogDto);
-		return ResponseEntity.ok(addedBook);
+	public ResponseEntity<List<CatalogModel>> addBook(@RequestBody List<CatalogDTO> catalogDto){
+		List<CatalogModel> addedBooks=catalogService.addBook(catalogDto);
+		return ResponseEntity.ok(addedBooks);
 	}
 	
 	@DeleteMapping("/{bookId}")

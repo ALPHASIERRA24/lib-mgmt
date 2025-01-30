@@ -13,7 +13,7 @@ public interface CatalogService {
 
 	public List<CatalogModel> getAllBooks();
 	
-	CatalogModel addBook(CatalogDTO catalogDto);
+	List<CatalogModel> addBook(List<CatalogDTO> catalogDto);
 	
 	boolean deleteBookById(Integer bookId);
 	

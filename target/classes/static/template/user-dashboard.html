@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>User Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Welcome, <span th:text="${user.userName}"></span>!</h1>
+    <p>Email: <span th:text="${user.email}"></span></p>
+    <p>Phone: <span th:text="${user.phoneNumber}"></span></p>
+    <nav>
+        <a href="/books">Browse Books</a>
+        <a href="/user/borrow-history">My Borrow History</a>
+        <a href="/logout">Logout</a>
+    </nav>
+</body>
+</html>

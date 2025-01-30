@@ -36,9 +36,9 @@ public class BorrowController {
 		return borrowService.addBorrowRecord(borrowRecordDTO);
 	}
 	
-	@PutMapping("/{borrowId}")
-	public BorrowRecordModel updateReturnStatus(@PathVariable int borrowId,@RequestBody BorrowRecordDTO borrowRecordDTO ) {
-		return borrowService.updateReturnStatus(borrowId,borrowRecordDTO );
+	@PutMapping("/return/{borrowId}")
+	public BorrowRecordModel returnBook(@PathVariable int borrowId,@RequestBody BorrowRecordDTO borrowRecordDTO ) {
+		return borrowService.returnBook(borrowId,borrowRecordDTO );
 	}
 	
 	@GetMapping("/user/{userId}")
@@ -67,7 +67,5 @@ public class BorrowController {
 		boolean isDeleted = borrowService.deleteBorrowrecordById(borrowId);
 		return isDeleted ? "Borrow record deleted successfully." : "Borrow record not found.";
 	}
-
-	
 
 }

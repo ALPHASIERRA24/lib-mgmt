@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cts.LibraryManagementSystem.dto.BorrowRecordDTO;
+import com.cts.LibraryManagementSystem.dto.CatalogDTO;
 import com.cts.LibraryManagementSystem.model.BorrowRecordModel;
 import com.cts.LibraryManagementSystem.model.CatalogModel;
 import com.cts.LibraryManagementSystem.model.UsersModel;
@@ -48,7 +49,7 @@ public class BorrowServiceImpl implements BorrowService {
 		BorrowRecordModel borrowRecord = new BorrowRecordModel();
 		borrowRecord.setUser(user);
 		borrowRecord.setBook(book);
-		borrowRecord.setBorrowDate(borrowRecordDTO.getBorrowDate());
+		borrowRecord.setBorrowDate(new Date(System.currentTimeMillis()));
 		borrowRecord.setDueDate(borrowRecordDTO.getDueDate());
 		borrowRecord.setReturnStatus(false);
 		
@@ -60,12 +61,20 @@ public class BorrowServiceImpl implements BorrowService {
 
 	
 	@Override
-	public BorrowRecordModel updateReturnStatus(int borrowId,BorrowRecordDTO borrowDTO) {
+	public BorrowRecordModel returnBook(int borrowId,BorrowRecordDTO borrowDTO) {
 		BorrowRecordModel borrowRecord =borrowRecordRepository.findById(borrowId)
 				.orElseThrow(() -> new RuntimeException("Borrow Record not Found with ID: "+ borrowId));
 		
 //		System.out.println(borrowRecord);
 		borrowRecord.setReturnStatus(borrowDTO.isReturnStatus());
+		
+//		Optional<CatalogModel> book= catalogService.getBookById(borrowRecord.getUser().getUserId());
+//		
+//		book.get().setAvailabilityStatus('Y');
+		CatalogDTO dto = new CatalogDTO();
+		dto.setAvailabilityStatus('Y');
+		
+		catalogService.updateBookById(borrowRecord.getBook().getBookId(), dto);
 		
 		return borrowRecordRepository.save(borrowRecord);
 	}
