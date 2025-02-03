@@ -18,7 +18,7 @@ public interface UsersService {
 	
 	public Optional<UsersModel> getUserById(int userId);
 	
-	public List<UsersModel> getUserByName(String userName);
+	public UsersModel getUserByName(String userName);
 	
 	public UsersModel updateUserById(int userId,UsersDTO usersDTO);
 	

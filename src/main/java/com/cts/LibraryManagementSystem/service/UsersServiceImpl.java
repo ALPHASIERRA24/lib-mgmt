@@ -7,9 +7,9 @@ import java.util.Optional;
 import javax.management.RuntimeErrorException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.adi.datajpa.dao.repository.UserRepository;
 import com.cts.LibraryManagementSystem.dto.UsersDTO;
 import com.cts.LibraryManagementSystem.model.UsersModel;
 import com.cts.LibraryManagementSystem.repository.UsersRepository;
@@ -19,14 +19,18 @@ public class UsersServiceImpl implements UsersService {
 
 	@Autowired 
 	private UsersRepository usersRepository;
+	
+	@Autowired
+	PasswordEncoder encoder;
 
 	@Override
 	public UsersModel addUser(UsersDTO usersDTO) {
 		UsersModel user = new UsersModel();
 		user.setUserName(usersDTO.getUserName());
-		user.setPassword(usersDTO.getPassword());
+		user.setPassword(encoder.encode(usersDTO.getPassword()));
 		user.setEmail(usersDTO.getEmail());
 		user.setPhoneNumber(usersDTO.getPhoneNumber());
+		user.setRole(usersDTO.getRole());
 		return usersRepository.save(user);
 	}
 
@@ -41,7 +45,7 @@ public class UsersServiceImpl implements UsersService {
 	}
 
 	@Override
-	public List<UsersModel> getUserByName(String userName) {
+	public UsersModel getUserByName(String userName) {
 		return usersRepository.findByUserName(userName);
 	}
 
