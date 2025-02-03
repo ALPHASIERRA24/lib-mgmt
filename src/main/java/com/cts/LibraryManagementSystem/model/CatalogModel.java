@@ -36,6 +36,7 @@ public class CatalogModel  {
     private char availabilityStatus;
     private java.sql.Timestamp createdAt;
     private java.sql.Timestamp updatedAt;
+    private int stock;
     
     @JsonBackReference
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)

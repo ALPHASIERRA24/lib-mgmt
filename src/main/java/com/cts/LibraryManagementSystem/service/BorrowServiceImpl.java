@@ -40,11 +40,17 @@ public class BorrowServiceImpl implements BorrowService {
 				.orElseThrow(()-> new RuntimeException("User not found with ID: "+ borrowRecordDTO.getUserId()));
 	
 		CatalogModel book= catalogService.getBookById(borrowRecordDTO.getBookId())
-				.orElseThrow(()-> new RuntimeException("Book not foubnd with ID: "+ borrowRecordDTO.getBookId()));
+				.orElseThrow(()-> new RuntimeException("Book not foubnd with ID: "+ borrowRecordDTO.getBookId()));  //when borrowing the book
 		
-		if(book.getAvailabilityStatus() == 'N') {
-			throw new RuntimeException("Book is not available for borrowing.");
+		if(book.getStock() <= 0) {
+			throw new RuntimeException("Book is out of Stock");
 		}
+		
+		book.setStock(book.getStock() - 1);
+		if(book.getStock() == 0){
+			book.setAvailabilityStatus('N');
+		}
+
 		
 		BorrowRecordModel borrowRecord = new BorrowRecordModel();
 		borrowRecord.setUser(user);
@@ -53,7 +59,7 @@ public class BorrowServiceImpl implements BorrowService {
 		borrowRecord.setDueDate(borrowRecordDTO.getDueDate());
 		borrowRecord.setReturnStatus(false);
 		
-		book.setAvailabilityStatus('N');
+//		book.setAvailabilityStatus('N');
 		catalogService.updateAvailabilityStatus(book);
 		
 		return borrowRecordRepository.save(borrowRecord);
@@ -65,18 +71,28 @@ public class BorrowServiceImpl implements BorrowService {
 		BorrowRecordModel borrowRecord =borrowRecordRepository.findById(borrowId)
 				.orElseThrow(() -> new RuntimeException("Borrow Record not Found with ID: "+ borrowId));
 		
-//		System.out.println(borrowRecord);
+////		System.out.println(borrowRecord);
 		borrowRecord.setReturnStatus(borrowDTO.isReturnStatus());
-		
-//		Optional<CatalogModel> book= catalogService.getBookById(borrowRecord.getUser().getUserId());
 //		
-//		book.get().setAvailabilityStatus('Y');
-		CatalogDTO dto = new CatalogDTO();
-		dto.setAvailabilityStatus('Y');
+////		Optional<CatalogModel> book= catalogService.getBookById(borrowRecord.getUser().getUserId());
+////		
+////		book.get().setAvailabilityStatus('Y');
+//		CatalogDTO dto = new CatalogDTO();
+//		dto.setAvailabilityStatus('Y');
+//		
+//		catalogService.updateBookById(borrowRecord.getBook().getBookId(), dto);
+//		
+
 		
-		catalogService.updateBookById(borrowRecord.getBook().getBookId(), dto);
+		CatalogModel book = borrowRecord.getBook();
+		book.setStock(book.getStock() + 1);
 		
-		return borrowRecordRepository.save(borrowRecord);
+		if(book.getStock() > 0) {
+			book.setAvailabilityStatus('Y');
+		}
+		catalogService.updateAvailabilityStatus(book);
+
+		return borrowRecordRepository.save(borrowRecord);		
 	}
 
 	@Override

@@ -36,6 +36,7 @@ public class CatalogServiceImpl implements CatalogService {
 					.availabilityStatus(catalog.getAvailabilityStatus())
 					.createdAt(new Timestamp(new Date(System.currentTimeMillis()).getTime()))
 					.updatedAt(new Timestamp(new Date(System.currentTimeMillis()).getTime()))
+					.stock(catalog.getStock())
 					.build();
 			savedBooks.add(catalogModel);
 		}
