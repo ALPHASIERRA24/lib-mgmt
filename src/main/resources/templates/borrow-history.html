@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Borrow History | Library System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/dashboard">📚 Library System</a>
+            <div class="collapse navbar-collapse justify-content-end">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/users/logout}">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <h2 class="text-center mb-4">📖 Borrow History</h2>
+
+        <table class="table table-bordered table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>Borrow ID</th>
+                    <th>Book Title</th>
+                    <th>Borrow Date</th>
+                    <th>Due Date</th>
+                    <th>Return Status</th>
+                    <th>Overdue</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="record : ${borrowRecords}">
+                    <td th:text="${record.borrowId}"></td>
+                    <td th:text="${record.book.bookName}"></td>
+                    <td th:text="${#dates.format(record.borrowDate, 'dd-MM-yyyy')}"></td>
+                    <td th:text="${#dates.format(record.dueDate, 'dd-MM-yyyy')}"></td>
+                    <td>
+                        <span th:if="${record.returnStatus}" class="badge bg-success">Returned</span>
+                        <span th:if="${!record.returnStatus}" class="badge bg-warning text-dark">Not Returned</span>
+                    </td>
+                    <td>
+                        <span th:if="${!record.returnStatus and record.dueDate.before(T(java.util.Date).new())}" 
+                              class="badge bg-danger">Overdue</span>
+                        <span th:if="${record.returnStatus or record.dueDate.after(T(java.util.Date).new())}" 
+                              class="badge bg-secondary">No</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

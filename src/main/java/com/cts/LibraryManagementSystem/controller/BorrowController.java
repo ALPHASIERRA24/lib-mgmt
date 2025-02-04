@@ -20,7 +20,7 @@ import com.cts.LibraryManagementSystem.service.BorrowService;
 
 
 @RestController
-@RequestMapping("/borrow-records")
+@RequestMapping("/api/borrow-records")
 public class BorrowController {
 	
 	@Autowired

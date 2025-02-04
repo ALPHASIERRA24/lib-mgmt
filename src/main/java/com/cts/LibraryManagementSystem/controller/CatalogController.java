@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 
 
 @RestController
-@RequestMapping("/books")
+@RequestMapping("/api/books")
 public class CatalogController {
 	
 	@Autowired

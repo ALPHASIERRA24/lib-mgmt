@@ -1,6 +1,6 @@
 package com.cts.LibraryManagementSystem.model;
 
-import java.util.ArrayList;
+
 import java.util.Collection;
 import java.util.List;
 
@@ -12,6 +12,9 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -33,15 +36,17 @@ public class UsersModel implements UserDetails {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq")
 	@SequenceGenerator(name = "user_seq", sequenceName = "user_seq", allocationSize = 1)
-	private int    userId;
+	private int userId;
 	private String userName;
 	private String password;
 	private String email;
 	private long    phoneNumber;
+	
+	@Enumerated(EnumType.STRING)
 	private Role role;
 	
 	@JsonBackReference
-	@OneToMany(mappedBy = "user", cascade= CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "user", cascade= CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	public List<BorrowRecordModel> borrowRecordModels;
 
 	@Override
@@ -49,12 +54,35 @@ public class UsersModel implements UserDetails {
 		
 		return List.of(new SimpleGrantedAuthority("ROLE_" + role.name()));
 	}
-
+	
 	@Override
 	public String getUsername() {
-	
-		return this.userName;
+		return userName;
 	}
 	
+	@Override
+	public String getPassword() {
+		return password;
+	}
+	
+	@Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 	
 }

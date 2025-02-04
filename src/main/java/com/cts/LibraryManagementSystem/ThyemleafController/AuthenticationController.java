@@ -10,11 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.cts.LibraryManagementSystem.dto.UsersDTO;
-import com.cts.LibraryManagementSystem.model.UsersModel;
 import com.cts.LibraryManagementSystem.service.UsersService;
 
 @Controller
-@RequestMapping("/auth")
+@RequestMapping("/users")
 public class AuthenticationController {
 	
 	@Autowired
@@ -26,17 +25,17 @@ public class AuthenticationController {
 	}
 	
 	@GetMapping("/register")
-	public String register(Model model) {
+	public String showRegistration(Model model) {
 		model.addAttribute("user", new UsersDTO());
 		return "register";
 	}
 	
 	@PostMapping("/register")
-	public String registerUser(@ModelAttribute("user") UsersDTO user, RedirectAttributes redirectAttributes) {
+	public String registerUser(@ModelAttribute("user") UsersDTO userDTO, RedirectAttributes redirectAttributes) {
 		try {
-			userService.addUser(user);
+			userService.addUser(userDTO);
 			redirectAttributes.addAttribute("success", "User registered successfully!");
-			return "redirect:/auth/login";
+			return "redirect:/users/login";
 		}catch(Exception e) {
 			System.out.println(e);
 			redirectAttributes.addAttribute("error", "User not registered!");
