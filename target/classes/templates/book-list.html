@@ -105,13 +105,7 @@
 
         <td th:if="${#authorization.expression('hasRole(''USER'')')}">
 
-          <button th:if="${book.availabilityStatus} == 'Y'" 
-
-              class="btn btn-success btn-sm" 
-
-              th:onclick="'borrowBook(' + ${book.bookId} + ')'">📖 Borrow</button>
-
-
+  
 
           <button class="btn btn-primary btn-sm" 
 
@@ -130,16 +124,6 @@
 
 
 <script>
-
-  function borrowBook(bookId) {
-
-    if (confirm('Are you sure you want to borrow this book?')) {
-
-      window.location.href = '/borrow-records/borrow/' + bookId;
-
-    }
-
-  }
 
 
 

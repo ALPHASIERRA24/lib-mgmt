@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+  <title>Manage Returns | Library System</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+
+<body class="bg-light">
+
+<div class="container mt-5">
+
+  <h2 class="text-center mb-4">↩️ Manage Book Returns</h2>
+
+  <table class="table table-bordered shadow-sm">
+
+    <thead class="table-dark text-center">
+
+      <tr>
+
+        <th>Borrow ID</th>
+
+        <th>Book Title</th>
+
+        <th>Borrowed By</th>
+
+        <th>Due Date</th>
+
+        <th>Status</th>
+
+        <th>Action</th>
+
+      </tr>
+
+    </thead>
+
+    <tbody>
+
+      <!-- ✅ Corrected Thymeleaf Loop -->
+
+      <tr th:each="record : ${borrowRecords}" class="text-center">
+
+        <td th:text="${record.borrowId}">1</td>
+
+        <td th:text="${record.book.bookName}">Book Title</td>
+
+        <td th:text="${record.user.getUsername()}">User Name</td>
+
+        <td th:text="${#dates.format(record.dueDate, 'yyyy-MM-dd')}">2025-02-05</td>
+
+        <td th:text="${record.returnStatus ? 'Returned' : 'Pending'}">Pending</td>
+
+        <td>
+
+          <!-- ✅ Conditional Button for Pending Returns -->
+
+          <a th:if="${!record.returnStatus}"
+
+            th:href="@{'/borrow-records/return/' + ${record.borrowId}}"
+
+            class="btn btn-success btn-sm">
+
+            ✅ Mark as Returned
+
+          </a>
+
+          <!-- ✅ Disabled Button if Already Returned -->
+
+          <button th:if="${record.returnStatus}" class="btn btn-secondary btn-sm" disabled>Returned</button>
+
+        </td>
+
+      </tr>
+
+    </tbody>
+
+  </table>
+
+</div>
+
+</body>
+
+</html>
+
+
+
+
+
+
+

@@ -5,6 +5,8 @@ import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
+import javax.management.RuntimeErrorException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,6 +43,7 @@ public class ThyBorrowController {
 	public String viewAllBorrowRecords(Model model) {
 		List<BorrowRecordModel> borrowRecordModels = borrowService.getAllBorrowRecord();
 		model.addAttribute("borrowRecords",borrowRecordModels);
+		model.addAttribute("currentDate", new Date(System.currentTimeMillis()));
 		return "borrow-records";
 	}
 	
@@ -53,6 +56,8 @@ public class ThyBorrowController {
 		
 		List<BorrowRecordModel> borrowRecordModels=borrowService.getBorrowRecordByUserId(usersModel.getUserId());
 		model.addAttribute("borrowRecords",borrowRecordModels);
+		  model.addAttribute("currentDate", new Date(System.currentTimeMillis()));
+
 
 		return "borrow-records";
 	}
@@ -70,20 +75,44 @@ public class ThyBorrowController {
 	
 
 	@PostMapping("/request/{bookId}")
-	public String requestBook(@PathVariable int bookId, Principal principal) {
+	public String requestBook(@PathVariable int bookId,@ModelAttribute("borrowRecord") BorrowRecordDTO borrowRecord,Principal principal) {
 	    UsersModel usersModel = usersService.getUserByName(principal.getName());
 	    if (usersModel == null) {
 	        throw new RuntimeException("User not found");
 	    }
 	    
-	    BorrowRecordDTO borrowRecordDTO= new BorrowRecordDTO();
-	    borrowRecordDTO.setBookId(bookId);
-	    borrowRecordDTO.setUserId(usersModel.getUserId());
-	    borrowRecordDTO.setReturnStatus(false);
+//	    BorrowRecordDTO borrowRecordDTO= new BorrowRecordDTO();
+	    borrowRecord.setBookId(bookId);
+	    borrowRecord.setUserId(usersModel.getUserId());
+	    borrowRecord.setReturnStatus(false);
 
-	    borrowService.addBorrowRecord(borrowRecordDTO);
+	    borrowService.addBorrowRecord(borrowRecord);
 
-	    return "redirect:/borrow-records";
+	    return "redirect:/borrow-records/borrow-history";
 	}
-
+	
+	@GetMapping("/return/{borrowId}")
+	public String showReturnBookForm(@PathVariable int borrowId,Model model) {
+		Optional<BorrowRecordModel> borrowRecoOptional=borrowService.getBorrowRecordById(borrowId);
+		if(borrowRecoOptional.isPresent()) {
+			model.addAttribute("borrowRecord",borrowRecoOptional.get());
+			return "return-book";
+		}else {
+			throw new RuntimeException("Borrow Record not found");
+		}
+	}
+	
+	@PostMapping("/return/{borrowId}")
+	public String returnBook(@PathVariable int borrowId,@ModelAttribute BorrowRecordDTO borrowRecordDTO) {
+		borrowRecordDTO.setReturnStatus(true);
+		borrowService.returnBook(borrowId, borrowRecordDTO);
+		return "redirect:/borrow-records";
+	}
+	
+	@GetMapping("/returns")
+	public String manageReturns(Model model) {
+	  List<BorrowRecordModel> borrowRecords = borrowService.getAllBorrowRecord();
+	  model.addAttribute("borrowRecords", borrowRecords);
+	  return "manage-returns"; 
+	}
 }

@@ -20,7 +20,7 @@
                 </ul>
             </div>
         </div>
-    </nav> -->
+    </nav> 
 
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 
@@ -35,20 +35,37 @@
 				</ul>
 			</div>
 		</div>
-	</nav>
+	</nav> -->
+	
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+  <div class="container-fluid">
+
+    <a class="navbar-brand" href="/">📚 Library System</a>
+
+    <div class="collapse navbar-collapse justify-content-end">
+
+      <ul class="navbar-nav">
+
+        <li class="nav-item"><a class="nav-link" href="/dashboard">🏠 Dashboard</a></li>
+
+        <li class="nav-item"><a class="nav-link" href="/books">📖 Books</a></li>
+
+        <li class="nav-item"><a class="nav-link" href="/users/logout">🚪 Logout</a></li>
+
+      </ul>
+
+    </div>
+
+  </div>
+
+</nav>
 
 	<!-- Dashboard Content -->
 	<div class="container mt-4">
 		<h2 class="text-center mb-4">📊 Dashboard</h2>
 
-		<!-- Admin Section -->
-		<!--   <div sec:authorize="hasRole('ADMIN')" class="card shadow p-4 mb-4">
-            <h3>Welcome, Admin 👑</h3>
-            <p>Manage the entire library system with ease.</p>
-            <a href="/admin/users" class="btn btn-primary">Manage Users</a>
-            <a href="/books" class="btn btn-success">Manage Books</a>
-            <a href="/borrow-records" class="btn btn-info">View Borrow Records</a>
-        </div> -->
+
 
 		<div sec:authorize="hasRole('ADMIN')"
 			class="card shadow p-4 mb-4 bg-light">
@@ -62,7 +79,8 @@
 					Manage Users</a> <a href="/books"
 					class="btn btn-outline-success btn-lg">📚 Manage Books</a> <a
 					href="/borrow-records" class="btn btn-outline-info btn-lg">📋
-					Borrow Records</a>
+					Borrow Records</a> <a href="/borrow-records/returns"
+					class="btn btn-outline-warning btn-lg">↩️ Manage Returns</a>
 
 			</div>
 
@@ -73,9 +91,8 @@
 			<h3>Welcome, Reader 📚</h3>
 			<p>Explore and manage your library activities.</p>
 			<a href="/books" class="btn btn-success">Browse Books</a> <a
-				href="/borrow-records/user/borrow-history" class="btn btn-info">My
-				Borrow History</a> <a href="/borrow-records/request"
-				class="btn btn-warning">Request a Book</a>
+				href="/borrow-records/borrow-history" class="btn btn-info">My
+				Borrow History</a>
 		</div>
 	</div>
 

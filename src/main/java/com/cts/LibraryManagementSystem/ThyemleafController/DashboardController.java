@@ -11,5 +11,10 @@ public class DashboardController {
 	public String dashboard() {
 			return "dashboard";
 		}
+	
+	@GetMapping("/")
+	public String home() {
+		return "home";
+	}
 		
 	}

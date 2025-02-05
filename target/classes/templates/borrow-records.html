@@ -44,11 +44,16 @@
                         <span th:if="${record.returnStatus}" class="badge bg-success">Returned</span>
                         <span th:if="${!record.returnStatus}" class="badge bg-warning text-dark">Not Returned</span>
                     </td>
-                    <td>
-    <span th:if="${!record.returnStatus and record.dueDate != null and record.dueDate.before(new java.sql.Date(System.currentTimeMillis()))}" 
-          class="badge bg-danger">Overdue</span>
-    <span th:if="${record.returnStatus or (record.dueDate != null and record.dueDate.after(new java.sql.Date()))}" 
-          class="badge bg-secondary">No</span>
+<td>
+
+  <span th:if="${!record.returnStatus and record.dueDate != null and record.dueDate.before(currentDate)}"
+
+     class="badge bg-danger">Overdue</span>
+
+  <span th:if="${record.returnStatus or (record.dueDate != null and record.dueDate.after(currentDate))}"
+
+     class="badge bg-secondary">No</span>
+
 </td>
 
                 </tr>
