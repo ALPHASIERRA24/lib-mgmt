@@ -28,6 +28,7 @@ public class ThyCatalogController {
 	@GetMapping
 	public String getAllBooks(Model model) {
 		List<CatalogModel> books = catalogService.getAllBooks();
+		System.out.println(books);
 		model.addAttribute("books",books);
 		return "book-list";	
 	}
@@ -43,6 +44,7 @@ public class ThyCatalogController {
 		Optional<CatalogModel> optionalBook = catalogService.getBookById(bookId);
 		if (optionalBook.isPresent()) {
 	        CatalogModel book = optionalBook.get();
+	        
 	        model.addAttribute("book", book);
 	        return "book-form";
 	    } else {
@@ -50,11 +52,15 @@ public class ThyCatalogController {
 	    }
 	}
 	
-	@PostMapping("/add")
+
+	@PostMapping("/addpost")
 	public String addBook(@ModelAttribute CatalogDTO catalogDTO) {
 		catalogService.addBook(List.of(catalogDTO));
 		return "redirect:/books";
 	}
+	
+	
+
 	
 	@PostMapping("/update/{bookId}")
 	public String updateBook(@PathVariable int bookId,@ModelAttribute CatalogDTO catalogDTO) {

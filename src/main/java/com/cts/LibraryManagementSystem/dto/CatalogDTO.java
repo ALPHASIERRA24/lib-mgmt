@@ -13,4 +13,5 @@ public class CatalogDTO {
     private String bookGenre;
     private char availabilityStatus;
     private int stock;
+    private int bookId;
 }

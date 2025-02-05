@@ -45,11 +45,9 @@ public class CatalogController {
 			return ResponseEntity.ok("Book Deleted SuccessFully.");
 		}else {
 			return ResponseEntity.status(404).body("Book not found.");
-		}
-			
+		}		
 	}
 	
-
 	@GetMapping("/name/{bookName}")
 	public List<CatalogModel> getBookByName(@PathVariable String bookName){
 		return catalogService.getBooksByName(bookName);

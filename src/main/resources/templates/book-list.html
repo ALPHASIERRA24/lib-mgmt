@@ -13,7 +13,7 @@
             <div class="collapse navbar-collapse justify-content-end">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/logout}">Logout</a>
+                        <a class="nav-link" th:href="@{/users/logout}">Logout</a>
                     </li>
                 </ul>
             </div>
@@ -48,7 +48,7 @@
                     <td th:text="${book.bookName}"></td>
                     <td th:text="${book.bookAuthor}"></td>
                     <td th:text="${book.bookGenre}"></td>
-                    <td th:text="${book.availabilityStatus == 'Y' ? 'Available' : 'Not Available'}"></td>
+                    <td th:text="${book.availabilityStatus} == 'Y' ? 'Available' : 'Not Available'"></td>
                     <td th:text="${book.stock}"></td>
 
                     <!-- Admin Actions -->

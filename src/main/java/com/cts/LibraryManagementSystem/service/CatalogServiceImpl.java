@@ -60,9 +60,9 @@ public class CatalogServiceImpl implements CatalogService {
 		catalogModel.setBookName(catalogDTO.getBookName() != null ? catalogDTO.getBookName() : catalogModel.getBookName());
 	    catalogModel.setBookAuthor(catalogDTO.getBookAuthor() != null ? catalogDTO.getBookAuthor() : catalogModel.getBookAuthor());
 	    catalogModel.setBookGenre(catalogDTO.getBookGenre() != null ? catalogDTO.getBookGenre() : catalogModel.getBookGenre());
-	    catalogModel.setAvailabilityStatus(catalogDTO.getAvailabilityStatus());
+	    catalogModel.setAvailabilityStatus(getAvailabilityStatus(catalogDTO.getStock()));
 	    catalogModel.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
-		    
+		catalogModel.setStock(catalogDTO.getStock() > 0 ? catalogDTO.getStock() : catalogModel.getStock());
 		return catalogRepo.save(catalogModel);
 	}
 
@@ -83,6 +83,10 @@ public class CatalogServiceImpl implements CatalogService {
 	
 	public void updateAvailabilityStatus(CatalogModel catalogModel) {
 		catalogRepo.save(catalogModel);
+	}
+	
+	public char getAvailabilityStatus(int stock) {
+		return stock>0 ? 'Y' : 'N';
 	}
 
 }

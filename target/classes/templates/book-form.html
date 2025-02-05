@@ -38,19 +38,21 @@
 
     <div class="container mt-4">
 
-        <h2 class="text-center" th:text="${book.bookId != null ? 'Edit Book' : 'Add New Book'}"></h2>
+        <h2 class="text-center" th:text="${book.bookId} > 0 ? 'Edit Book' : 'Add New Book'"></h2>
 
         <!-- Dynamic Action Based on Add or Edit -->
 
-        <form th:action="@{${book.bookId != null} ? '/books/update/' + ${book.bookId} : '/books/add'}" 
+        <form th:action="@{${book.bookId}  > 0 ? '/books/update/' + ${book.bookId} : '/books/addpost'}"
 
               th:object="${book}" method="post">
+              
+              
 
               
 
             <!-- Hidden Field for Book ID (For Edit) -->
 
-            <input type="hidden" th:field="*{bookId}" />
+            <input type="hidden" th:if="${book.bookId > 0}"  th:field="*{bookId}"/>
 
 
 
@@ -110,7 +112,7 @@
 
 
 
-            <button type="submit" class="btn btn-success w-100" th:text="${book.bookId != null ? 'Update Book' : 'Add Book'}"></button>
+            <button type="submit" class="btn btn-success w-100" th:text="${book.bookId  > 0 ? 'Update Book' : 'Add Book'}"></button>
 
         </form>
 
