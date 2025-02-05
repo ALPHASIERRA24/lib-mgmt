@@ -24,6 +24,7 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 
 @Data
@@ -31,6 +32,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Table(name="Users_Table")
 @Entity
+@ToString(exclude = "borrowRecordModels")  //new
 public class UsersModel implements UserDetails {
 
 	@Id

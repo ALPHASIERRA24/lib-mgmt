@@ -1,5 +1,6 @@
 package com.cts.LibraryManagementSystem.ThyemleafController;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,9 +14,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.cts.LibraryManagementSystem.dto.BorrowRecordDTO;
 import com.cts.LibraryManagementSystem.dto.CatalogDTO;
 import com.cts.LibraryManagementSystem.model.CatalogModel;
+import com.cts.LibraryManagementSystem.model.UsersModel;
+import com.cts.LibraryManagementSystem.service.BorrowService;
 import com.cts.LibraryManagementSystem.service.CatalogService;
+import com.cts.LibraryManagementSystem.service.UsersService;
 
 
 @Controller
@@ -25,10 +30,17 @@ public class ThyCatalogController {
 	@Autowired
 	private CatalogService catalogService;
 	
+	@Autowired
+	private UsersService usersService;
+	
+	@Autowired
+	private BorrowService borrowService;
+	
+	
 	@GetMapping
 	public String getAllBooks(Model model) {
 		List<CatalogModel> books = catalogService.getAllBooks();
-		System.out.println(books);
+//		System.out.println(books);
 		model.addAttribute("books",books);
 		return "book-list";	
 	}
@@ -58,14 +70,46 @@ public class ThyCatalogController {
 		catalogService.addBook(List.of(catalogDTO));
 		return "redirect:/books";
 	}
-	
-	
 
-	
 	@PostMapping("/update/{bookId}")
 	public String updateBook(@PathVariable int bookId,@ModelAttribute CatalogDTO catalogDTO) {
 		catalogService.updateBookById(bookId, catalogDTO);
 		return "redirect:/books";
+	}
+	
+	@GetMapping("/delete/{bookId}")
+	public String deleteBook(@PathVariable int bookId) {
+		catalogService.deleteBookById(bookId);
+		return "redirect:/books";
+	}
+	
+	@GetMapping("/request/{bookId}")
+
+	public String requestBook(@PathVariable int bookId, Principal principal, Model model) {
+
+	    UsersModel user = usersService.getUserByName(principal.getName());
+
+	    CatalogModel book = catalogService.getBookById(bookId)
+
+	                                      .orElseThrow(() -> new RuntimeException("Book not found"));
+	    // Prepare BorrowRecordDTO to pre-fill the request form
+
+	    BorrowRecordDTO borrowRecordDTO = new BorrowRecordDTO();
+	    borrowRecordDTO.setBookId(book.getBookId());
+	    borrowRecordDTO.setUserId(user.getUserId());
+	    model.addAttribute("borrowRecord", borrowRecordDTO);
+	    model.addAttribute("book", book);  // Send book details for display
+	    return "borrow-request";
+
+	}
+
+	@PostMapping("/request")
+
+	public String submitBorrowRequest(@ModelAttribute BorrowRecordDTO borrowRecordDTO) {
+	    borrowRecordDTO.setReturnStatus(false);  // Default return status
+	    borrowService.addBorrowRecord(borrowRecordDTO);  // Save the borrow request
+	    return "redirect:/borrow-records/borrow-history";
+
 	}
 
 }

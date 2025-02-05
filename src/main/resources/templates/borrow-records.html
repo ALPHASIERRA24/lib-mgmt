@@ -20,22 +20,24 @@
     </nav>
 
     <div class="container mt-4">
-        <h2 class="text-center mb-4">📖 Borrow History</h2>
+        <h2 class="text-center mb-4">📖 All Borrow Records</h2>
 
         <table class="table table-bordered table-striped">
             <thead class="table-dark">
                 <tr>
                     <th>Borrow ID</th>
+                    <th>User Name</th>
                     <th>Book Title</th>
                     <th>Borrow Date</th>
                     <th>Due Date</th>
                     <th>Return Status</th>
-                    <th>Overdue</th>
+       				<th>Over Due</th>
                 </tr>
             </thead>
             <tbody>
                 <tr th:each="record : ${borrowRecords}">
                     <td th:text="${record.borrowId}"></td>
+                    <td th:text="${record.user}"></td>
                     <td th:text="${record.book.bookName}"></td>
                     <td th:text="${#dates.format(record.borrowDate, 'dd-MM-yyyy')}"></td>
                     <td th:text="${#dates.format(record.dueDate, 'dd-MM-yyyy')}"></td>

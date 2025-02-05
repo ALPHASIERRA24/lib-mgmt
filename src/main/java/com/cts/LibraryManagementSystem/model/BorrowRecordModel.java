@@ -14,10 +14,12 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.Data;
+import lombok.ToString;
 
 @Entity
 @Table(name = "borrow_records")
 @Data
+@ToString(exclude = "user") //new
 public class BorrowRecordModel {
    
 	@Id
