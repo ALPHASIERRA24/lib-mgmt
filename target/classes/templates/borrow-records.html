@@ -3,7 +3,6 @@
 <head>
     <title>Borrow History | Library System</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -37,7 +36,7 @@
             <tbody>
                 <tr th:each="record : ${borrowRecords}">
                     <td th:text="${record.borrowId}"></td>
-                    <td th:text="${record.user}"></td>
+                    <td th:text="${record.user.getUsername()}"></td>
                     <td th:text="${record.book.bookName}"></td>
                     <td th:text="${#dates.format(record.borrowDate, 'dd-MM-yyyy')}"></td>
                     <td th:text="${#dates.format(record.dueDate, 'dd-MM-yyyy')}"></td>
@@ -46,11 +45,12 @@
                         <span th:if="${!record.returnStatus}" class="badge bg-warning text-dark">Not Returned</span>
                     </td>
                     <td>
-                        <span th:if="${!record.returnStatus and record.dueDate.before(T(java.util.Date).new())}" 
-                              class="badge bg-danger">Overdue</span>
-                        <span th:if="${record.returnStatus or record.dueDate.after(T(java.util.Date).new())}" 
-                              class="badge bg-secondary">No</span>
-                    </td>
+    <span th:if="${!record.returnStatus and record.dueDate != null and record.dueDate.before(new java.sql.Date(System.currentTimeMillis()))}" 
+          class="badge bg-danger">Overdue</span>
+    <span th:if="${record.returnStatus or (record.dueDate != null and record.dueDate.after(new java.sql.Date()))}" 
+          class="badge bg-secondary">No</span>
+</td>
+
                 </tr>
             </tbody>
         </table>

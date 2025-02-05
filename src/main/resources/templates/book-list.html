@@ -1,76 +1,131 @@
-<!-- Book List Table -->
+<!DOCTYPE html>
 
-<table class="table table-striped table-bordered">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-  <thead class="table-dark">
+<head>
 
-    <tr>
+  <title>Dashboard | Library System</title>
 
-      <th>Book ID</th>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
-      <th>Title</th>
 
-      <th>Author</th>
+</head>
 
-      <th>Genre</th>
-
-      <th>Availability</th>
-
-      <th>Stock</th>
-
-      <th th:if="${#authorization.expression('hasRole(''ADMIN'')')}">Actions</th>
-
-      <th th:if="${#authorization.expression('hasRole(''USER'')')}">Borrow/Request</th>
-
-    </tr>
-
-  </thead>
-
-  <tbody>
-
-    <tr th:each="book : ${books}">
-
-      <td th:text="${book.bookId}"></td>
-
-      <td th:text="${book.bookName}"></td>
-
-      <td th:text="${book.bookAuthor}"></td>
-
-      <td th:text="${book.bookGenre}"></td>
-
-      <td th:text="${book.availabilityStatus == 'Y' ? 'Available' : 'Not Available'}"></td>
-
-      <td th:text="${book.stock}"></td>
+<body>
 
 
 
-      <!-- Admin Actions -->
-
-      <td th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
-
-        <a th:href="@{'/books/edit/' + ${book.bookId}}" class="btn btn-warning btn-sm">✏️ Edit</a>
-
-        <a th:href="@{'/books/delete/' + ${book.bookId}}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this book?');">🗑️ Delete</a>
-
-      </td>
+<div class="container mt-4">
 
 
 
-      <!-- User Actions -->
+  <!-- ✅ Add Book Button (Visible to Admin Only) -->
 
-      <td th:if="${#authorization.expression('hasRole(''USER'')')}">
+  <div class="d-flex justify-content-between align-items-center mb-3">
 
-        <button th:if="${book.availabilityStatus == 'Y'}" class="btn btn-success btn-sm" th:onclick="'borrowBook(' + ${book.bookId} + ')'">📖 Borrow</button>
+    <h2>📚 Book List</h2>
 
-        <button class="btn btn-primary btn-sm" th:onclick="'requestBook(' + ${book.bookId} + ')'">📥 Request Book</button>
+    <button th:if="${#authorization.expression('hasRole(''ADMIN'')')}" 
 
-      </td>
+        class="btn btn-primary" 
 
-    </tr>
+        onclick="window.location.href='/books/add'">
 
-  </tbody>
+      ➕ Add Book
 
-</table>
+    </button>
+
+  </div>
+
+
+
+  <!-- Book List Table -->
+
+  <table class="table table-striped table-bordered">
+
+    <thead class="table-dark">
+
+      <tr>
+
+        <th>Book ID</th>
+
+        <th>Title</th>
+
+        <th>Author</th>
+
+        <th>Genre</th>
+
+        <th>Availability</th>
+
+        <th>Stock</th>
+
+        <th th:if="${#authorization.expression('hasRole(''ADMIN'')')}">Actions</th>
+
+        <th th:if="${#authorization.expression('hasRole(''USER'')')}">Borrow/Request</th>
+
+      </tr>
+
+    </thead>
+
+
+
+    <tbody>
+
+      <tr th:each="book : ${books}">
+
+        <td th:text="${book.bookId}"></td>
+
+        <td th:text="${book.bookName}"></td>
+
+        <td th:text="${book.bookAuthor}"></td>
+
+        <td th:text="${book.bookGenre}"></td>
+
+        <td th:text="${book.availabilityStatus} == 'Y' ? 'Available' : 'Not Available'"></td>
+
+        <td th:text="${book.stock}"></td>
+
+
+
+        <!-- Admin Actions -->
+
+        <td th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+
+          <a th:href="@{'/books/edit/' + ${book.bookId}}" class="btn btn-warning btn-sm">✏️ Edit</a>
+
+          <a th:href="@{'/books/delete/' + ${book.bookId}}" class="btn btn-danger btn-sm" 
+
+            onclick="return confirm('Are you sure you want to delete this book?');">🗑️ Delete</a>
+
+        </td>
+
+
+
+        <!-- User Actions -->
+
+        <td th:if="${#authorization.expression('hasRole(''USER'')')}">
+
+          <button th:if="${book.availabilityStatus} == 'Y'" 
+
+              class="btn btn-success btn-sm" 
+
+              th:onclick="'borrowBook(' + ${book.bookId} + ')'">📖 Borrow</button>
+
+
+
+          <button class="btn btn-primary btn-sm" 
+
+              th:onclick="'requestBook(' + ${book.bookId} + ')'">📥 Request Book</button>
+
+        </td>
+
+      </tr>
+
+    </tbody>
+
+  </table>
+
+</div>
 
 
 
@@ -99,3 +154,9 @@
   }
 
 </script>
+
+
+
+</body>
+
+</html>

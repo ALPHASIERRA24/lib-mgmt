@@ -15,6 +15,8 @@ import com.cts.LibraryManagementSystem.dto.UsersDTO;
 import com.cts.LibraryManagementSystem.model.UsersModel;
 import com.cts.LibraryManagementSystem.service.UsersService;
 
+import lombok.Delegate;
+
 @Controller
 @RequestMapping("/admin")
 public class UserManagementController {
@@ -26,7 +28,13 @@ public class UserManagementController {
 		model.addAttribute("users",usersService.getAllUser());
 		return "admin-users";
 	}
-
+	
+	@PostMapping("/users/add")
+	public String addUser(@ModelAttribute UsersDTO userDTO) {
+		usersService.addUser(userDTO);
+		return "redirect:/admin/users";
+	}
+	
 
 	@GetMapping("/users/edit/{userId}")
 
