@@ -13,7 +13,7 @@ import com.cts.LibraryManagementSystem.model.CatalogModel;
 
 public interface CatalogRepository extends JpaRepository<CatalogModel, Integer>{
 
-	List<CatalogModel> findByBookName(String bookName);
+	List<CatalogModel> findByBookNameContainingIgnoreCase(String bookName);
 
     List<CatalogModel> findByBookGenre(String bookGenre);
     

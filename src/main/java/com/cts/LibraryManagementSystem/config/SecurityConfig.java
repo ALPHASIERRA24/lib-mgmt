@@ -31,7 +31,7 @@ public class SecurityConfig {
 						.requestMatchers("/admin/**").hasRole("ADMIN")
 //						.requestMatchers("/user/**").hasRole("USER")
 						.requestMatchers("/dashboard","/books/**","/borrow-records/**").hasAnyRole("ADMIN","USER")
-						.requestMatchers("/users/register","/users/login").permitAll()
+						.requestMatchers("/users/register","/users/login","/home").permitAll()
 						.anyRequest().authenticated())
 						.formLogin(login -> login
 								.usernameParameter("userName")

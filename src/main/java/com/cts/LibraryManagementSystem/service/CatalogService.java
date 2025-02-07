@@ -26,6 +26,6 @@ public interface CatalogService {
 	CatalogModel updateBookById(int bookId, CatalogDTO catalogDTO);
 	
 	public void updateAvailabilityStatus(CatalogModel catalogModel);
-	
+
 	
 }

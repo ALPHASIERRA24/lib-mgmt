@@ -68,7 +68,7 @@ public class CatalogServiceImpl implements CatalogService {
 
 	@Override
 	public List<CatalogModel> getBooksByName(String bookName) {
-		return catalogRepo.findByBookName(bookName);
+		return catalogRepo.findByBookNameContainingIgnoreCase(bookName);
 	}
 
 	@Override
@@ -88,5 +88,7 @@ public class CatalogServiceImpl implements CatalogService {
 	public char getAvailabilityStatus(int stock) {
 		return stock>0 ? 'Y' : 'N';
 	}
+	
+	
 
 }

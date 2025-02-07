@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cts.LibraryManagementSystem.dto.BorrowRecordDTO;
 import com.cts.LibraryManagementSystem.dto.CatalogDTO;
@@ -37,14 +38,14 @@ public class ThyCatalogController {
 	private BorrowService borrowService;
 	
 	
-	@GetMapping
-	public String getAllBooks(Model model) {
-		List<CatalogModel> books = catalogService.getAllBooks();
-//		System.out.println(books);
-		model.addAttribute("books",books);
-		return "book-list";	
-	}
-	
+//	@GetMapping
+//	public String getAllBooks(Model model) {
+//		List<CatalogModel> books = catalogService.getAllBooks();
+////		System.out.println(books);
+//		model.addAttribute("books",books);
+//		return "book-list";	
+//	}
+//	
 	@GetMapping("/add")
 	public String showAddBookForm(Model model) {
 		model.addAttribute("book",new CatalogDTO());
@@ -109,6 +110,30 @@ public class ThyCatalogController {
 	    borrowRecordDTO.setReturnStatus(false);  // Default return status
 	    borrowService.addBorrowRecord(borrowRecordDTO);  // Save the borrow request
 	    return "redirect:/borrow-records/borrow-history";
+
+	}
+	
+	@GetMapping
+
+	public String getAllBooks(@RequestParam(value = "query", required = false) String query, Model model) {
+
+	  List<CatalogModel> books;
+
+	  if (query != null && !query.isEmpty()) {
+
+	    books = catalogService.getBooksByName(query); // Fetch books by name
+
+	  } else {
+
+	    books = catalogService.getAllBooks(); // Default list of all books
+
+	  }
+
+	  model.addAttribute("books", books);
+
+	  model.addAttribute("query", query);
+
+	  return "book-list";
 
 	}
 

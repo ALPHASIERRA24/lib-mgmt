@@ -12,49 +12,53 @@
 
     body {
 
-      background-color: black;
+      background-color: #f4f1ea; /* Soft Beige */
 
-    }
-
-    .hero {
-
-      background: url('https://source.unsplash.com/1600x400/?library,books') no-repeat center center;
-
-      background-size: cover;
-
-      padding: 80px 0;
-
-      color: white;
+      font-family: 'Poppins', sans-serif;
 
       text-align: center;
 
     }
 
-    .hero h1 {
+    /* Navbar */
 
-      font-size: 3rem;
+    .navbar {
 
-      font-weight: bold;
+      background: #34495e; /* Deep Blue-Gray */
+
+      padding: 12px;
 
     }
 
-    .features {
+    .hero {
 
-      background-color: white;
+      background: linear-gradient(to right, #6a85b6, #bac8e0); /* Soft Gradient */
 
-      padding: 40px;
+      color: white;
+
+      padding: 80px 20px;
 
       border-radius: 10px;
 
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+    }
+
+    .feature-card:hover {
+
+      transform: translateY(-5px);
+
+      transition: 0.3s;
 
     }
 
     .footer {
 
-      background-color: #343a40;
+      background: #34495e;
 
       color: white;
+
+      padding: 15px;
 
     }
 
@@ -64,22 +68,29 @@
 
 <body>
 
+
+
 <!-- ✅ Navbar -->
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark">
 
-  <div class="container-fluid">
+  <div class="container">
 
-    <a class="navbar-brand" href="/">📚 Library System</a>
+    <a class="navbar-brand fw-bold" href="/">📚 Library System</a>
 
-    <div class="collapse navbar-collapse justify-content-end">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+
+      <span class="navbar-toggler-icon"></span>
+
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
 
       <ul class="navbar-nav">
 
         <li class="nav-item"><a class="nav-link" href="/users/login">🔑 Login</a></li>
 
         <li class="nav-item"><a class="nav-link" href="/users/register">📝 Register</a></li>
-
 
       </ul>
 
@@ -89,45 +100,77 @@
 
 </nav>
 
-<!-- ✅ Hero Section -->
 
-<div class="hero">
 
-  <h1>Welcome to the Library Management System</h1>
+<!-- ✅ Hero Section with Features Text -->
 
-  <p>Manage, Explore, and Discover Books with Ease 📚</p>
+<div class="container mt-4">
 
-  <a href="/users/login" class="btn btn-primary btn-lg mt-3">Get Started ➡️</a>
+  <div class="hero">
+
+    <h1 class="fw-bold">Explore the World of Books 📖</h1>
+
+    <p class="lead">Search, Borrow, and Manage Books Easily</p>
+
+    <a href="/users/login" class="btn btn-light text-dark fw-bold px-4 py-2">Get Started ➡️</a>
+
+  </div>
+
+   
+
+  <!-- Features Text Below Hero -->
+
+  <div class="mt-4">
+
+    <h3 class="text-secondary">📌 Key Features</h3>
+
+    <p class="text-muted">Effortless book management with a user-friendly experience.</p>
+
+  </div>
 
 </div>
 
-<!-- ✅ Features Section -->
 
-<div class="container mt-5 features">
+
+<!-- ✅ Features Cards -->
+
+<div class="container mt-4">
 
   <div class="row text-center">
 
     <div class="col-md-4">
 
-      <h4>🔍 Search Books</h4>
+      <div class="card feature-card p-3 shadow">
 
-      <p>Quickly find books by title, author, or genre from our extensive catalog.</p>
+        <h4>🔍 Search Books</h4>
 
-    </div>
+        <p>Find books by title, author, or genre instantly.</p>
 
-    <div class="col-md-4">
-
-      <h4>📖 Borrow & Return</h4>
-
-      <p>Easy borrowing system with real-time status tracking for all your books.</p>
+      </div>
 
     </div>
 
     <div class="col-md-4">
 
-      <h4>👥 User-Friendly Dashboard</h4>
+      <div class="card feature-card p-3 shadow">
 
-      <p>Manage your activities, view history, and explore new recommendations.</p>
+        <h4>📖 Borrow & Return</h4>
+
+        <p>Easy borrowing system with real-time tracking.</p>
+
+      </div>
+
+    </div>
+
+    <div class="col-md-4">
+
+      <div class="card feature-card p-3 shadow">
+
+        <h4>📚 Vast Collection</h4>
+
+        <p>Explore thousands of books across different genres.</p>
+
+      </div>
 
     </div>
 
@@ -135,25 +178,22 @@
 
 </div>
 
+
+
 <!-- ✅ Footer -->
 
-<footer class="footer text-center py-3 mt-4">
+<footer class="footer mt-4">
 
   <p>&copy; 2025 Library Management System | All Rights Reserved</p>
 
 </footer>
 
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
+
 </body>
 
 </html>
-
-
-
-
-
-
-
-
-
-
-
