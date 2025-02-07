@@ -4,95 +4,302 @@
 
 <head>
 
-    <title>Dashboard | Library System</title>
+  <title>Dashboard | Library System</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+   
+
+  <style>
+
+    /* Background & Typography */
+
+    body {
+
+      background-color: #f4f1ea; /* Soft Beige */
+
+      font-family: 'Poppins', sans-serif;
+
+      color: #333;
+
+      min-height: 100vh;
+
+      display: flex;
+
+      flex-direction: column;
+
+    }
+
+
+
+    /* Navbar */
+
+    .navbar {
+
+      background: #34495e; /* Deep Blue-Gray */
+
+      padding: 12px;
+
+    }
+
+    .navbar-brand {
+
+      font-size: 1.8rem;
+
+      font-weight: bold;
+
+      color: #F4C430 !important; /* Gold Accent */
+
+    }
+
+    .navbar-nav .nav-link {
+
+      font-size: 1.2rem;
+
+      color: white !important;
+
+      transition: color 0.3s;
+
+    }
+
+    .navbar-nav .nav-link:hover {
+
+      color: #F4C430 !important;
+
+    }
+
+
+
+    /* Dashboard Container */
+
+    .dashboard-container {
+
+      max-width: 1100px;
+
+      margin: auto;
+
+      padding: 40px 20px;
+
+    }
+
+
+
+    /* Dashboard Title */
+
+    .dashboard-title {
+
+      text-align: center;
+
+      font-size: 2.5rem;
+
+      font-weight: bold;
+
+      margin-bottom: 30px;
+
+      color: #2C3E50;
+
+    }
+
+
+
+    /* Dashboard Cards */
+
+    .dashboard-card {
+
+      background: white;
+
+      padding: 30px;
+
+      border-radius: 10px;
+
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+      transition: all 0.3s ease-in-out;
+
+      text-align: center;
+
+    }
+
+    .dashboard-card:hover {
+
+      transform: scale(1.02);
+
+    }
+
+    .dashboard-card h3 {
+
+      font-size: 1.6rem;
+
+      font-weight: bold;
+
+      color: #34495e;
+
+    }
+
+    .dashboard-card p {
+
+      color: #666;
+
+    }
+
+
+
+    /* Button Styling */
+
+    .button-container {
+
+      display: flex;
+
+      flex-wrap: wrap;
+
+      justify-content: center;
+
+      gap: 15px;
+
+      margin-top: 20px;
+
+    }
+
+    .dashboard-btn {
+
+      min-width: 230px;
+
+      padding: 14px;
+
+      border-radius: 10px;
+
+      font-size: 1.1rem;
+
+      transition: all 0.3s ease;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      gap: 10px;
+
+    }
+
+    .dashboard-btn i {
+
+      font-size: 1.3rem;
+
+    }
+
+    .dashboard-btn:hover {
+
+      transform: scale(1.05);
+
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+
+    }
+
+
+
+    /* Footer */
+
+    .footer {
+
+      background: #34495e;
+
+      color: white;
+
+      text-align: center;
+
+      padding: 15px;
+
+      margin-top: auto;
+
+    }
+
+  </style>
 
 </head>
 
-<body class="bg-light">
+<body>
 
 
 
 <!-- ✅ Navbar -->
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+<nav class="navbar navbar-expand-lg navbar-dark">
 
-    <div class="container">
+  <div class="container">
 
-        <a class="navbar-brand" href="/">📚 Library System</a>
+    <a class="navbar-brand fw-bold" href="/">📚 Library System</a>
 
-        <div class="collapse navbar-collapse justify-content-end">
+    <div class="collapse navbar-collapse justify-content-end">
 
-            <ul class="navbar-nav">
+      <ul class="navbar-nav">
 
-                <li class="nav-item"><a class="nav-link" href="/dashboard">🏠 Dashboard</a></li>
+        <li class="nav-item"><a class="nav-link" href="/dashboard">🏠 Dashboard</a></li>
 
-                <li class="nav-item"><a class="nav-link" href="/books">📖 Books</a></li>
 
-                <li class="nav-item"><a class="nav-link text-danger" href="/users/logout">🚪 Logout</a></li>
+        <li class="nav-item"><a class="nav-link" href="/home">🚪 Logout</a></li>
 
-            </ul>
-
-        </div>
+      </ul>
 
     </div>
+
+  </div>
 
 </nav>
 
 
 
-<!-- ✅ Dashboard Main Section -->
+<!-- ✅ Dashboard Content -->
 
-<div class="container my-5">
+<div class="container dashboard-container">
 
-    <h2 class="text-center text-dark fw-bold">📊 Dashboard</h2>
+  <h2 class="dashboard-title">📊 Dashboard</h2>
 
 
 
-    <!-- ✅ Admin Section -->
+  <!-- Admin Section -->
 
-    <div sec:authorize="hasRole('ADMIN')" class="card p-4 mb-4 shadow-lg border-0 bg-gradient">
+  <div sec:authorize="hasRole('ADMIN')" class="dashboard-card mb-4">
 
-        <h3 class="text-dark"><i class="fas fa-user-shield"></i> Welcome, Admin 👑</h3>
+    <h3>Welcome, Admin </h3>
 
-        <p>Manage the entire library system efficiently.</p>
+    <p>Manage the entire library system with ease.</p>
 
-        <div class="row text-center g-3">
+    <div class="button-container">
 
-            <div class="col-md-3"><a href="/admin/users" class="btn btn-outline-primary w-100">👥 Manage Users</a></div>
+      <a href="/admin/users" class="btn btn-outline-dark dashboard-btn"><i class="fas fa-users"></i> Manage Users</a>
 
-            <div class="col-md-3"><a href="/books" class="btn btn-outline-success w-100">📚 Manage Books</a></div>
+      <a href="/books" class="btn btn-outline-success dashboard-btn"><i class="fas fa-book"></i> Manage Books</a>
 
-            <div class="col-md-3"><a href="/borrow-records" class="btn btn-outline-info w-100">📋 Borrow Records</a></div>
+      <a href="/borrow-records" class="btn btn-outline-info dashboard-btn"><i class="fas fa-clipboard-list"></i> Borrow Records</a>
 
-            <div class="col-md-3"><a href="/borrow-records/returns" class="btn btn-outline-warning w-100">🔄 Manage Returns</a></div>
-
-        </div>
+      <a href="/borrow-records/returns" class="btn btn-outline-warning dashboard-btn"><i class="fas fa-undo"></i> Manage Returns</a>
 
     </div>
 
+  </div>
 
 
-    <!-- ✅ User Section -->
 
-    <div sec:authorize="hasRole('USER')" class="card p-4 shadow-lg border-0 bg-gradient">
+  <!-- User Section -->
 
-        <h3 class="text-dark"><i class="fas fa-book-reader"></i> Welcome, Reader 📚</h3>
+  <div sec:authorize="hasRole('USER')" class="dashboard-card">
 
-        <p>Explore and manage your library activities.</p>
+    <h3>Welcome, Reader 📚</h3>
 
-        <div class="row text-center g-3">
+    <p>Explore and manage your library activities.</p>
 
-            <div class="col-md-6"><a href="/books" class="btn btn-outline-success w-100">📖 Browse Books</a></div>
+    <div class="button-container">
 
-            <div class="col-md-6"><a href="/borrow-records/borrow-history" class="btn btn-outline-info w-100">🕘 My Borrow History</a></div>
+      <a href="/books" class="btn btn-outline-primary dashboard-btn"><i class="fas fa-book-open"></i> Browse Books</a>
 
-        </div>
+      <a href="/borrow-records/borrow-history" class="btn btn-outline-secondary dashboard-btn"><i class="fas fa-history"></i> My Borrow History</a>
 
     </div>
+
+  </div>
 
 </div>
 
@@ -100,15 +307,20 @@
 
 <!-- ✅ Footer -->
 
-<footer class="text-center py-3 bg-dark text-light">
+<footer class="footer">
 
-    <p>&copy; 2025 Library Management System | All Rights Reserved</p>
+  <p>&copy; 2025 Library Management System | All Rights Reserved</p>
 
 </footer>
+
+
+
+<!-- ✅ FontAwesome for Icons -->
+
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 
 
 
 </body>
 
 </html>
-
