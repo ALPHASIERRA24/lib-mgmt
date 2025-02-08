@@ -8,9 +8,11 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.cts.LibraryManagementSystem.dto.CatalogDTO;
 import com.cts.LibraryManagementSystem.model.CatalogModel;
+import com.cts.LibraryManagementSystem.repository.BorrowRecordRepository;
 import com.cts.LibraryManagementSystem.repository.CatalogRepository;
 
 @Service
@@ -18,6 +20,9 @@ public class CatalogServiceImpl implements CatalogService {
 	
 	@Autowired
 	private CatalogRepository catalogRepo;
+	
+	@Autowired
+	private BorrowRecordRepository borrowRecordRepository;
 
 	@Override
 	public List<CatalogModel> getAllBooks() {
@@ -43,13 +48,21 @@ public class CatalogServiceImpl implements CatalogService {
 		
 		return catalogRepo.saveAll(savedBooks);
 	}
-
+	
+	
 	@Override
+	@Transactional
 	public boolean deleteBookById(Integer bookId) {
-	       if (!catalogRepo.existsById(bookId)) {
-	            return false;
-	        }
-	        catalogRepo.deleteById(bookId);
+		CatalogModel book =catalogRepo.findById(bookId).orElseThrow(() -> new RuntimeException("Book not found"));
+//		if(book.isEmpty()) {
+//			return false;
+//		}
+//	       if (!catalogRepo.existsById(bookId)) {
+//	            return false;
+//	        }
+			borrowRecordRepository.deleteByBook_BookId(book.getBookId());
+		       
+		    catalogRepo.deleteById(bookId);
 	        return true;
 	}
 

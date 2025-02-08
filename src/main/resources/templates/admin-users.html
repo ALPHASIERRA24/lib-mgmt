@@ -4,15 +4,175 @@
 
 <head>
 
-    <title>Admin - User Management</title>
+  <title>Admin - User Management</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+  <style>
+
+    body {
+
+      background-color: #f4f1ea; /* Soft Beige */
+
+      font-family: 'Poppins', sans-serif;
+
+      color: #333;
+
+    }
+
+    /* Navbar */
+
+    .navbar {
+
+      background: #34495e; /* Deep Blue-Gray */
+
+      padding: 12px;
+
+    }
+
+    .navbar-brand {
+
+      font-size: 1.8rem;
+
+      font-weight: bold;
+
+      color: #F4C430 !important; /* Gold Accent */
+
+    }
+
+    .navbar-nav .nav-link {
+
+      font-size: 1.2rem;
+
+      color: white !important;
+
+      transition: color 0.3s;
+
+    }
+
+    .navbar-nav .nav-link:hover {
+
+      color: #F4C430 !important;
+
+    }
+
+    /* Container */
+
+    .container {
+
+      max-width: 1100px;
+
+      margin: auto;
+
+      padding-top: 40px;
+
+    }
+
+    /* Page Title */
+
+    .page-title {
+
+      text-align: center;
+
+      font-size: 2.2rem;
+
+      font-weight: bold;
+
+      margin-bottom: 30px;
+
+      color: #2C3E50;
+
+    }
+
+    /* Card Styles */
+
+    .custom-card {
+
+      background: white;
+
+      padding: 25px;
+
+      border-radius: 10px;
+
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+    }
+
+    /* Table Styles */
+
+    .table {
+
+      background: white;
+
+      border-radius: 10px;
+
+      overflow: hidden;
+
+    }
+
+    .table th {
+
+      background: #34495e;
+
+      color: white;
+
+    }
+
+    .table td, .table th {
+
+      text-align: center;
+
+      vertical-align: middle;
+
+    }
+
+    /* Floating Add Button */
+
+    .floating-btn {
+
+      position: fixed;
+
+      bottom: 20px;
+
+      right: 20px;
+
+      background: #28a745;
+
+      color: white;
+
+      font-size: 18px;
+
+      padding: 12px 18px;
+
+      border-radius: 50px;
+
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+
+      transition: all 0.3s ease-in-out;
+
+    }
+
+    .floating-btn:hover {
+
+      background: #218838;
+
+      transform: scale(1.05);
+
+    }
+
+  </style>
 
 </head>
 
-<body class="bg-light">
+<body>
 
-<nav class="navbar navbar-expand-lg navbar-dark" >
+<!-- ✅ Navbar -->
+
+<nav class="navbar navbar-expand-lg navbar-dark">
 
   <div class="container-fluid">
 
@@ -23,11 +183,12 @@
       <ul class="navbar-nav">
 
         <li class="nav-item"><a class="nav-link" href="/dashboard">🏠 Dashboard</a></li>
-	<li class="nav-item">
-    <a class="nav-link" th:href="@{/dashboard}">Back</a>
-</li>
 
         <li class="nav-item"><a class="nav-link" href="/users/logout">🚪 Logout</a></li>
+        
+        	<li class="nav-item">
+    <a class="nav-link" th:href="@{/dashboard}">Back</a>
+	</li>
 
       </ul>
 
@@ -37,120 +198,147 @@
 
 </nav>
 
-<div class="container mt-5">
+<!-- ✅ Main Content -->
 
-    <h2 class="text-center mb-4">👥 User Management Panel</h2>
+<div class="container">
 
+  <h2 class="page-title">👥 User Management</h2>
 
+  <!-- ✅ Add User Form -->
 
-    <!-- ✅ Add User Form -->
+  <div class="custom-card mb-4">
 
-    <div class="card mb-4 p-3 shadow-sm">
+    <h4 class="mb-3">➕ Add New User</h4>
 
-        <h4>Add New User</h4>
+    <form th:action="@{/admin/users/add}" method="post" class="row g-3">
 
-        <form th:action="@{/admin/users/add}" method="post" class="row g-3">
+      <div class="col-md-3">
 
-            <div class="col-md-3">
+        <input type="text" class="form-control" name="userName" placeholder="Username" required>
 
-                <input type="text" class="form-control" name="userName" placeholder="Username" required>
+      </div>
 
-            </div>
+      <div class="col-md-3">
 
-            <div class="col-md-3">
+        <input type="password" class="form-control" name="password" placeholder="Password" required>
 
-                <input type="password" class="form-control" name="password" placeholder="Password" required>
+      </div>
 
-            </div>
+      <div class="col-md-3">
 
-            <div class="col-md-3">
+        <input type="email" class="form-control" name="email" placeholder="Email" required>
 
-                <input type="email" class="form-control" name="email" placeholder="Email" required>
+      </div>
 
-            </div>
+      <div class="col-md-2">
 
-            <div class="col-md-2">
+        <input type="number" class="form-control" name="phoneNumber" placeholder="Phone Number" required>
 
-                <input type="number" class="form-control" name="phoneNumber" placeholder="Phone Number" required>
+      </div>
 
-            </div>
-			<div class="col-md-2">
-                <label>Role</label>
-                <select name="role" class="form-select" required>
-                    <option value="USER">User</option>
-                    <option value="ADMIN">Admin</option>
-                </select>
-            </div>
-            <div class="col-md-1 d-grid">
+      <div class="col-md-2">
 
-                <button type="submit" class="btn btn-success">➕ Add</button>
+        <select name="role" class="form-select" required>
 
-            </div>
+          <option value="USER">User</option>
 
-        </form>
+          <option value="ADMIN">Admin</option>
 
-    </div>
+        </select>
 
+      </div>
 
+      <div class="col-md-1 d-grid">
 
-    <!-- ✅ User List Table -->
+        <button type="submit" class="btn btn-success">➕ Add</button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+  <!-- ✅ User List Table -->
+
+  <div class="custom-card">
+
+    <h4 class="mb-3">📋 Registered Users</h4>
 
     <table class="table table-bordered shadow-sm">
 
-        <thead class="table-dark text-center">
+      <thead>
 
-            <tr>
+        <tr>
 
-                <th>User ID</th>
+          <th>User ID</th>
 
-                <th>Username</th>
+          <th>Username</th>
 
-                <th>Email</th>
+          <th>Email</th>
 
-                <th>Phone Number</th>
+          <th>Phone Number</th>
 
-                <th>Actions</th>
+          <th>Role</th>
 
-            </tr>
+          <th>Actions</th>
 
-        </thead>
+        </tr>
 
-        <tbody>
+      </thead>
 
-            <tr th:each="user : ${users}" class="text-center">
+      <tbody>
 
-                <td th:text="${user.userId}"></td>
+        <tr th:each="user : ${users}">
 
-                <td th:text="${user.getUsername()}"></td>
+          <td th:text="${user.userId}"></td>
 
-                <td th:text="${user.email}"></td>
+          <td th:text="${user.getUsername()}"></td>
 
-                <td th:text="${user.phoneNumber}"></td>
+          <td th:text="${user.email}"></td>
 
-                <td>
+          <td th:text="${user.phoneNumber}"></td>
 
-                    <a th:href="@{'/admin/users/delete/' + ${user.userId}}" 
+          <td th:text="${user.role}"></td>
 
-                       class="btn btn-danger btn-sm" 
+          <td>
 
-                       onclick="return confirm('Are you sure you want to delete this user?');">
+            <a th:href="@{'/admin/users/delete/' + ${user.userId}}"
 
-                        🗑️ Delete
+              class="btn btn-danger btn-sm"
 
-                    </a>
+              onclick="return confirm('Are you sure you want to delete this user?');">
 
-                </td>
+              🗑️ Delete
 
-            </tr>
+            </a>
 
-        </tbody>
+          </td>
+
+        </tr>
+
+      </tbody>
 
     </table>
 
+  </div>
+
 </div>
 
+<!-- ✅ Floating Add User Button -->
 
+<a href="#top" class="floating-btn"><i class="fas fa-user-plus"></i></a>
+
+<!-- ✅ Footer -->
+
+<footer class="footer text-center py-3">
+
+  <p>&copy; 2025 Library Management System | All Rights Reserved</p>
+
+</footer>
 
 </body>
 
 </html>
+
+
+

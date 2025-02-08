@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.cts.LibraryManagementSystem.dto.BorrowRecordDTO;
 import com.cts.LibraryManagementSystem.dto.CatalogDTO;
@@ -79,8 +80,14 @@ public class ThyCatalogController {
 	}
 	
 	@GetMapping("/delete/{bookId}")
-	public String deleteBook(@PathVariable int bookId) {
-		catalogService.deleteBookById(bookId);
+	public String deleteBook(@PathVariable int bookId,RedirectAttributes redirectAttributes) {
+		boolean isDeleted = catalogService.deleteBookById(bookId);
+
+		if(isDeleted){
+			redirectAttributes.addFlashAttribute("successMessage","Book deleted successfully.");
+		}else {
+			redirectAttributes.addFlashAttribute("errorMessage","Book not found or cannot be deleted");	
+		}
 		return "redirect:/books";
 	}
 	

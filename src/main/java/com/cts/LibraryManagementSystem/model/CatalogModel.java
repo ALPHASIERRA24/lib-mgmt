@@ -41,7 +41,7 @@ public class CatalogModel  {
     private int stock;
     
     @JsonBackReference
-    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "book", cascade = {CascadeType.ALL, CascadeType.REMOVE})
     private List<BorrowRecordModel> borrowRecords;
  
 
