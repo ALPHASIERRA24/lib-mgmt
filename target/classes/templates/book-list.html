@@ -219,11 +219,11 @@
 
           <td>
 
-            <span th:text="${book.availabilityStatus == 'Y' ? 'Available' : 'Not Available'}"
+            <span th:text="${book.availabilityStatus} == 'Y' ? 'Available' : 'Not Available'"
 
                class="badge"
 
-               th:classappend="${book.availabilityStatus == 'Y' ? 'bg-success' : 'bg-danger'}">
+               th:classappend="${book.availabilityStatus} == 'Y' ? 'bg-success' : 'bg-danger'">
 
             </span>
 

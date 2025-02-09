@@ -135,7 +135,7 @@ public class ThyCatalogController {
 	    books = catalogService.getAllBooks(); // Default list of all books
 
 	  }
-
+	  
 	  model.addAttribute("books", books);
 
 	  model.addAttribute("query", query);

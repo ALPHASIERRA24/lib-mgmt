@@ -163,7 +163,16 @@
       transform: scale(1.05);
 
     }
+	
+	    .back-btn-container {
 
+      display: flex;
+
+      justify-content: center;
+
+      margin-top: 20px;
+
+    }
   </style>
 
 </head>
@@ -186,9 +195,7 @@
 
         <li class="nav-item"><a class="nav-link" href="/users/logout">🚪 Logout</a></li>
         
-        	<li class="nav-item">
-    <a class="nav-link" th:href="@{/dashboard}">Back</a>
-	</li>
+
 
       </ul>
 
@@ -319,6 +326,12 @@
       </tbody>
 
     </table>
+
+  </div>
+  
+    <div class="back-btn-container">
+
+    <a href="/dashboard" class="btn btn-outline-dark btn-lg">🔙 Back to Dashboard</a>
 
   </div>
 
