@@ -39,65 +39,24 @@ public class UserManagementController {
 	@GetMapping("/users/edit/{userId}")
 
 	public String editUserForm(@PathVariable int userId, Model model) {
-
 		Optional<UsersModel> user = usersService.getUserById(userId);
-
 		if (user.isPresent()) {
-
 			model.addAttribute("user", user.get());
-
-			return "edit-user"; // Create this Thymeleaf template
-
+			return "edit-user"; 
 		} else {
-
 			return "redirect:/admin/users";
-
 		}
-
 	}
 
 	@PostMapping("/users/update/{userId}")
-
 	public String updateUser(@PathVariable int userId, @ModelAttribute UsersDTO usersDTO) {
-
 		usersService.updateUserById(userId, usersDTO);
-
 		return "redirect:/admin/users";
-
 	}
 
 	@GetMapping("/users/delete/{userId}")
-
 	public String deleteUser(@PathVariable int userId) {
-
 		usersService.deleteUserById(userId);
-
 		return "redirect:/admin/users";
-
 	}
-
 }
-
-//@Controller
-//@RequestMapping("/admin")
-//
-//public class UserManagementController {
-//	@Autowired
-//	private  UsersService usersService;
-//
-//
-//  @GetMapping("/users")
-//
-//  public String showUsersPage(Model model) {
-//
-//    model.addAttribute("users", usersService.getAllUser()); // Fetch users
-//
-//    return "admin-users"; // Ensure "users.html" exists in templates/
-//
-//  }
-
-//}
-
-
-
-

@@ -16,11 +16,10 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <style>
 
-    /* Background & Typography */
 
     body {
 
-      background-color: #f4f1ea; /* Soft Beige */
+      background-color: #f4f1ea; 
 
       font-family: 'Poppins', sans-serif;
 
@@ -35,12 +34,9 @@
     }
 
 
-
-    /* Navbar */
-
     .navbar {
 
-      background: #34495e; /* Deep Blue-Gray */
+      background: #34495e; 
 
       padding: 12px;
 
@@ -52,7 +48,7 @@
 
       font-weight: bold;
 
-      color: #F4C430 !important; /* Gold Accent */
+      color: #F4C430 !important; 
 
     }
 
@@ -72,10 +68,6 @@
 
     }
 
-
-
-    /* Dashboard Container */
-
     .dashboard-container {
 
       max-width: 1100px;
@@ -85,10 +77,6 @@
       padding: 40px 20px;
 
     }
-
-
-
-    /* Dashboard Title */
 
     .dashboard-title {
 
@@ -104,9 +92,6 @@
 
     }
 
-
-
-    /* Dashboard Cards */
 
     .dashboard-card {
 
@@ -146,9 +131,6 @@
 
     }
 
-
-
-    /* Button Styling */
 
     .button-container {
 
@@ -200,10 +182,6 @@
 
     }
 
-
-
-    /* Footer */
-
     .footer {
 
       background: #34495e;
@@ -224,10 +202,6 @@
 
 <body>
 
-
-
-<!-- ✅ Navbar -->
-
 <nav class="navbar navbar-expand-lg navbar-dark">
   <div class="container justify-content-between">
     <a class="navbar-brand fw-bold" href="/">📚 Library System</a>
@@ -246,16 +220,9 @@
   </div>
 </nav>
 
-
-<!-- ✅ Dashboard Content -->
-
 <div class="container dashboard-container">
 
   <h2 class="dashboard-title">📊 Dashboard</h2>
-
-
-
-  <!-- Admin Section -->
 
   <div sec:authorize="hasRole('ADMIN')" class="dashboard-card mb-4">
 
@@ -300,8 +267,6 @@
 </div>
 
 
-
-<!-- ✅ Footer -->
 
 <footer class="footer">
 

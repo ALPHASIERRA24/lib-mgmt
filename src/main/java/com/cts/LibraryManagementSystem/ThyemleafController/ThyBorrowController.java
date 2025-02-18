@@ -81,7 +81,6 @@ public class ThyBorrowController {
 	        throw new RuntimeException("User not found");
 	    }
 	    
-//	    BorrowRecordDTO borrowRecordDTO= new BorrowRecordDTO();
 	    borrowRecord.setBookId(bookId);
 	    borrowRecord.setUserId(usersModel.getUserId());
 	    borrowRecord.setReturnStatus(false);

@@ -12,7 +12,6 @@
 
 <body class="bg-light">
 
-<!-- ✅ Navbar (Theme Consistent) -->
 
 <nav class="navbar navbar-expand-lg navbar-dark" style="background: #34495e;">
 
@@ -36,13 +35,10 @@
 
 </nav>
 
-<!-- ✅ Page Content -->
 
 <div class="container mt-5">
 
   <h2 class="text-center mb-4 fw-bold text-dark">↩️ Manage Book Returns</h2>
-
-  <!-- ✅ Book Return Table -->
 
   <div class="card p-3 shadow-sm">
 
@@ -90,15 +86,12 @@
 
           <td>
 
-            <!-- ✅ Conditional Button for Pending Returns -->
-
             <a th:if="${!record.returnStatus}" th:href="@{'/borrow-records/return/' + ${record.borrowId}}" class="btn btn-success btn-sm">
 
               ✅ Mark as Returned
 
             </a>
 
-            <!-- ✅ Disabled Button if Already Returned -->
 
             <button th:if="${record.returnStatus}" class="btn btn-secondary btn-sm" disabled>Returned</button>
 
@@ -114,7 +107,7 @@
 
 </div>
 
-<!-- ✅ Back Button (Centered at Bottom) -->
+
 
 <div class="container text-center mt-4">
 
@@ -122,7 +115,7 @@
 
 </div>
 
-<!-- ✅ Footer -->
+
 
 <footer class="footer text-white text-center py-3 mt-5" style="background: #34495e;">
 

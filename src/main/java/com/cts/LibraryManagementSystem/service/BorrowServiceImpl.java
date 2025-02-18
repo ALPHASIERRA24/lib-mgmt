@@ -59,7 +59,6 @@ public class BorrowServiceImpl implements BorrowService {
 		borrowRecord.setDueDate(borrowRecordDTO.getDueDate());
 		borrowRecord.setReturnStatus(false);
 		
-//		book.setAvailabilityStatus('N');
 		catalogService.updateAvailabilityStatus(book);
 		
 		return borrowRecordRepository.save(borrowRecord);
@@ -70,20 +69,7 @@ public class BorrowServiceImpl implements BorrowService {
 	public BorrowRecordModel returnBook(int borrowId,BorrowRecordDTO borrowDTO) {
 		BorrowRecordModel borrowRecord =borrowRecordRepository.findById(borrowId)
 				.orElseThrow(() -> new RuntimeException("Borrow Record not Found with ID: "+ borrowId));
-		
-////		System.out.println(borrowRecord);
 		borrowRecord.setReturnStatus(borrowDTO.isReturnStatus());
-//		
-////		Optional<CatalogModel> book= catalogService.getBookById(borrowRecord.getUser().getUserId());
-////		
-////		book.get().setAvailabilityStatus('Y');
-//		CatalogDTO dto = new CatalogDTO();
-//		dto.setAvailabilityStatus('Y');
-//		
-//		catalogService.updateBookById(borrowRecord.getBook().getBookId(), dto);
-//		
-
-		
 		CatalogModel book = borrowRecord.getBook();
 		book.setStock(book.getStock() + 1);
 		

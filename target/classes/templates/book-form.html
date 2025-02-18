@@ -12,7 +12,7 @@
 
 <body class="bg-light">
 
-<!-- ✅ Navbar -->
+
 
 <nav class="navbar navbar-expand-lg navbar-dark" style="background: #34495e;">
 
@@ -36,13 +36,13 @@
 
 </nav>
 
-<!-- ✅ Book Form Section -->
+
 
 <div class="container mt-5">
 
   <h2 class="text-center mb-4" th:text="${book.bookId} > 0 ? '✏️ Edit Book' : '➕ Add New Book'"></h2>
 
-  <!-- ✅ Form -->
+
 
   <div class="card shadow p-4">
 
@@ -50,7 +50,7 @@
 
        th:object="${book}" method="post">
 
-      <!-- Hidden Field for Book ID (For Edit) -->
+
 
       <input type="hidden" th:if="${book.bookId > 0}" th:field="*{bookId}" />
 
@@ -100,11 +100,11 @@
 
       </div>
 
-      <!-- ✅ Submit Button -->
+
 
       <button type="submit" class="btn btn-success w-100 mb-2" th:text="${book.bookId > 0 ? '✏️ Update Book' : '➕ Add Book'}"></button>
 
-      <!-- ✅ Back Button -->
+
 
       <a href="/books" class="btn btn-secondary w-100">⬅️ Back</a>
 

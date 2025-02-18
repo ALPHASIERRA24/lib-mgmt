@@ -19,14 +19,9 @@ public interface BorrowRecordRepository extends JpaRepository<BorrowRecordModel,
 	
 	List<BorrowRecordModel> findByDueDateBeforeAndReturnStatus(java.sql.Date currentDate,boolean returnStatus);
 	
-//	@Modifying
-//	@Query("Delete from BorrowRecordModel b where b.catalog = :catalog")
-//	void deleteByCatalog(@Param("catalog")CatalogModel catalog);
 	@Modifying
 	@Query("DELETE FROM BorrowRecordModel b WHERE b.book.bookId = :bookId")
 	void deleteByBook_BookId(@Param("bookId") Integer bookId);
-
-
 
 
 }

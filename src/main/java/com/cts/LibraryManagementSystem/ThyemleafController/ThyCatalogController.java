@@ -37,16 +37,7 @@ public class ThyCatalogController {
 	
 	@Autowired
 	private BorrowService borrowService;
-	
-	
-//	@GetMapping
-//	public String getAllBooks(Model model) {
-//		List<CatalogModel> books = catalogService.getAllBooks();
-////		System.out.println(books);
-//		model.addAttribute("books",books);
-//		return "book-list";	
-//	}
-//	
+
 	@GetMapping("/add")
 	public String showAddBookForm(Model model) {
 		model.addAttribute("book",new CatalogDTO());
@@ -100,7 +91,6 @@ public class ThyCatalogController {
 	    CatalogModel book = catalogService.getBookById(bookId)
 
 	                                      .orElseThrow(() -> new RuntimeException("Book not found"));
-	    // Prepare BorrowRecordDTO to pre-fill the request form
 
 	    BorrowRecordDTO borrowRecordDTO = new BorrowRecordDTO();
 	    borrowRecordDTO.setBookId(book.getBookId());
@@ -114,34 +104,22 @@ public class ThyCatalogController {
 	@PostMapping("/request")
 
 	public String submitBorrowRequest(@ModelAttribute BorrowRecordDTO borrowRecordDTO) {
-	    borrowRecordDTO.setReturnStatus(false);  // Default return status
-	    borrowService.addBorrowRecord(borrowRecordDTO);  // Save the borrow request
+	    borrowRecordDTO.setReturnStatus(false);  
+	    borrowService.addBorrowRecord(borrowRecordDTO);  
 	    return "redirect:/borrow-records/borrow-history";
 
 	}
 	
 	@GetMapping
-
 	public String getAllBooks(@RequestParam(value = "query", required = false) String query, Model model) {
-
 	  List<CatalogModel> books;
-
 	  if (query != null && !query.isEmpty()) {
-
-	    books = catalogService.getBooksByName(query); // Fetch books by name
-
+	    books = catalogService.getBooksByName(query); 
 	  } else {
-
-	    books = catalogService.getAllBooks(); // Default list of all books
-
-	  }
-	  
+	    books = catalogService.getAllBooks();
+	  }	  
 	  model.addAttribute("books", books);
-
 	  model.addAttribute("query", query);
-
 	  return "book-list";
-
 	}
-
 }

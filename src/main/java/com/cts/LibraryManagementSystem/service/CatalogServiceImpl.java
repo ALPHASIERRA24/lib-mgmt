@@ -54,14 +54,7 @@ public class CatalogServiceImpl implements CatalogService {
 	@Transactional
 	public boolean deleteBookById(Integer bookId) {
 		CatalogModel book =catalogRepo.findById(bookId).orElseThrow(() -> new RuntimeException("Book not found"));
-//		if(book.isEmpty()) {
-//			return false;
-//		}
-//	       if (!catalogRepo.existsById(bookId)) {
-//	            return false;
-//	        }
-			borrowRecordRepository.deleteByBook_BookId(book.getBookId());
-		       
+			borrowRecordRepository.deleteByBook_BookId(book.getBookId());      
 		    catalogRepo.deleteById(bookId);
 	        return true;
 	}

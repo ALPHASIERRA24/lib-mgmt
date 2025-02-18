@@ -19,7 +19,7 @@ import lombok.ToString;
 @Entity
 @Table(name = "borrow_records")
 @Data
-@ToString(exclude = "user") //new
+@ToString(exclude = "user") 
 public class BorrowRecordModel {
    
 	@Id

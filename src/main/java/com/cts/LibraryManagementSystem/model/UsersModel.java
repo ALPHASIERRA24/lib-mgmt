@@ -32,7 +32,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @Table(name="Users_Table")
 @Entity
-@ToString(exclude = "borrowRecordModels")  //new
+@ToString(exclude = "borrowRecordModels")  
 public class UsersModel implements UserDetails {
 
 	@Id
