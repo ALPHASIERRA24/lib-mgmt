@@ -1,6 +1,26 @@
-
+$$HOME PAGE
 <img width="944" alt="Screenshot 2025-02-24 100245" src="https://github.com/user-attachments/assets/cac0e2d6-0a81-49b9-a3a6-95904db23087" />
 
+$ADMIN DASHBOARD
+<img width="943" alt="Screenshot 2025-02-24 100351" src="https://github.com/user-attachments/assets/d03c3781-23c6-4331-a45e-04f3899c7162" />
+
+*User Management
+<img width="950" alt="Screenshot 2025-02-24 100522" src="https://github.com/user-attachments/assets/1b4f1834-2e2f-474a-a571-39d1f92dbda3" />
+
+*Book List
+<img width="946" alt="Screenshot 2025-02-24 100614" src="https://github.com/user-attachments/assets/c87cccda-d89b-4879-8030-fb1729b693fe" />
+
+*Borrow Records
+<img width="947" alt="Screenshot 2025-02-24 100734" src="https://github.com/user-attachments/assets/26b8fa4a-e44d-4b5f-9909-ace439ae5972" />
+
+$USER ADMIN
+<img width="932" alt="Screenshot 2025-02-24 102149" src="https://github.com/user-attachments/assets/fa257174-19f7-441a-bbdd-0af8ffb00113" />
+
+*Book List
+<img width="947" alt="Screenshot 2025-02-24 100927" src="https://github.com/user-attachments/assets/a4c5db7d-24b4-49e8-b29c-3b61f59a4a9f" />
+
+*User Borrow Records
+<img width="944" alt="Screenshot 2025-02-24 101013" src="https://github.com/user-attachments/assets/63dcd26e-93da-427f-b5ab-a8f7a10ba81a" />
 
 
 
